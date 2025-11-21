@@ -94,11 +94,18 @@ npm run deploy:prod  # Deploy to production
 
 ## Frontend Integration
 
-Frontend detects environment and uses appropriate backend:
-- `localhost` → `https://dev.trollhair.com`
-- `trollhair.com` → `https://backend.trollhair.com`
+Frontend build generates `config.js` with backend URL:
 
-No environment variables needed in frontend. Simple hostname detection.
+```bash
+deno task build       # Dev: https://dev.trollhair.com
+deno task build:prod  # Prod: https://backend.trollhair.com
+```
+
+Client-side JS imports the generated config:
+```javascript
+import { BACKEND } from '/config.js'
+fetch(`${BACKEND}/contact/send`, {...})
+```
 
 ## Package Scripts
 
