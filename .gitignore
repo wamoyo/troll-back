@@ -1,0 +1,29 @@
+# Archive files
+archive/
+
+# Node
+node_modules/
+
+
+# Deno cache
+.deno/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
