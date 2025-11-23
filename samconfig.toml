@@ -1,0 +1,31 @@
+version = 0.1
+
+[dev.deploy.parameters]
+stack_name = "devtrolls-backend"
+region = "us-east-1"
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = [
+  "Environment=dev",
+  "TableName=devtrolls",
+  "AllowedOrigin=http://localhost:8700",
+  "FromEmail=website@trollhair.com",
+  "ToEmail=website@trollhair.com"
+]
+confirm_changeset = true
+resolve_s3 = true
+s3_prefix = "devtrolls-backend"
+
+[prod.deploy.parameters]
+stack_name = "trollhair-backend"
+region = "us-east-1"
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = [
+  "Environment=prod",
+  "TableName=trollhair",
+  "AllowedOrigin=https://trollhair.com",
+  "FromEmail=website@trollhair.com",
+  "ToEmail=website@trollhair.com"
+]
+confirm_changeset = true
+resolve_s3 = true
+s3_prefix = "trollhair-backend"
