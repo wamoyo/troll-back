@@ -14,7 +14,7 @@ export function createEmailBody (data) {
   <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
     <tr>
       <td style="padding: 30px 20px 0px 20px;">
-        <img src="http://localhost:8700/images/Troll-Hair-Logo-Red-Text-300.png" alt="Troll Hair" width="300" height="113" style="display: block; width: 100%; max-width: 300px; height: auto;">
+        <img src="http://trollhair.com/images/Troll-Hair-Logo-Red-Text-300.png" alt="Troll Hair" width="300" height="113" style="display: block; width: 100%; max-width: 300px; height: auto;">
       </td>
     </tr>
     <tr>
