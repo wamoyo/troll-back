@@ -5,12 +5,13 @@ Backend built with AWS Lambda (Node.js latest), API Gateway, DynamoDB, and SES. 
 ## API Endpoints
 
 **Development:**
-- Base URL: `https://ea147pg5f3.execute-api.us-east-1.amazonaws.com/dev`
-- Example: `POST https://ea147pg5f3.execute-api.us-east-1.amazonaws.com/dev/contact/send`
+- Custom Domain: `https://dev.trollhair.com`
+- Direct URL: `https://ea147pg5f3.execute-api.us-east-1.amazonaws.com/dev`
+- Example: `POST https://dev.trollhair.com/contact/send`
 
 **Production:** *(not yet deployed)*
-- Base URL: TBD
-- Example: `POST <base-url>/contact/send`
+- Custom Domain: TBD
+- Example: `POST <domain>/contact/send`
 
 ## Architecture
 
@@ -38,12 +39,13 @@ backend/
 │           ├── test.js            # Test file
 │           ├── contact.email.js   # Email template
 │           ├── package.json       # Lambda dependencies
-│           └── node_modules/      # Installed per-Lambda
+│           ├── node_modules/      # Installed per-Lambda
+│           └── utilities/         # Lambda-specific utilities
+│               ├── honeypot.js    # Spam detection
+│               ├── html.js        # Template helper
+│               └── test-lambda.js # Test helper
 ├── utilities/
-│   ├── html.js                    # Tagged template for emails
-│   ├── honeypot.js                # Spam detection
-│   ├── test-lambda.js             # Test helper
-│   └── preview-server.js          # Email preview server
+│   └── preview-server.js          # Backend-wide dev tooling
 ├── template.yaml                  # SAM infrastructure definition
 ├── samconfig.toml                 # SAM config (dev/prod)
 ├── package.json                   # devDependencies + scripts
@@ -54,8 +56,12 @@ backend/
 - Routes mirror API structure - filesystem IS the API documentation
 - Directory naming: Single-word preferred; multi-word use underscores (e.g., `career_opportunities/`)
 - Lambda naming: `{env}-{route-with-hyphens}` (e.g., `devtrolls-contact-send`)
-- Each Lambda has its own `package.json` with all dependencies
+- Each Lambda is self-contained:
+  - Own `package.json` with all dependencies
+  - Own `utilities/` folder with Lambda-specific code (honeypot, html, test helpers)
+  - Copy utilities from existing Lambda when creating new ones
 - Root `package.json` has `devDependencies` for local testing/tooling
+- Root `utilities/` only for backend-wide dev tooling (e.g., preview-server)
 - Email templates: `*.email.js` files export `createEmailBody(data)` function
 - Preview emails: `npm run preview-emails` (auto-discovers all `*.email.js` files)
 

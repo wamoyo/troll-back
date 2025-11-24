@@ -4,6 +4,9 @@ archive/
 # Node
 node_modules/
 
+# AWS SAM
+.aws-sam/
+
 
 # Deno cache
 .deno/
