@@ -1,6 +1,6 @@
 // Pure: generates HTML email body for contact form submission
 
-import html from '../../../utilities/html.js'
+import html from './html.js'
 
 export function createEmailBody (data) {
   // Style variables for DRY inline styles

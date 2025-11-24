@@ -103,13 +103,6 @@ Resources:
               Ref: TrollHairApi
             Path: /contact/send
             Method: POST
-        OptionsContact:
-          Type: HttpApi
-          Properties:
-            ApiId:
-              Ref: TrollHairApi
-            Path: /contact/send
-            Method: OPTIONS
     Metadata:
       SamResourceId: ContactSendFunction
 Outputs:

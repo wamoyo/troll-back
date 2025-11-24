@@ -5,7 +5,7 @@ import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
 import { DynamoDBDocumentClient, PutCommand } from '@aws-sdk/lib-dynamodb'
 import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses'
 import { createEmailBody } from './contact.email.js'
-import { isSpam } from '../../../utilities/honeypot.js'
+import { isSpam } from './honeypot.js'
 
 var dynamoClient = new DynamoDBClient({})
 var docClient = DynamoDBDocumentClient.from(dynamoClient)
