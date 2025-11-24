@@ -1,0 +1,127 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Troll Hair Backend - Lambda, API Gateway, DynamoDB, SES
+Parameters:
+  Environment:
+    Type: String
+    Description: Environment name (dev or prod)
+    AllowedValues:
+    - dev
+    - prod
+    Default: dev
+  TableName:
+    Type: String
+    Description: DynamoDB table name
+    Default: devtrolls
+  AllowedOrigin:
+    Type: String
+    Description: CORS allowed origin for frontend
+    Default: http://localhost:8700
+  FromEmail:
+    Type: String
+    Description: SES verified sender email address
+    Default: website@trollhair.com
+  ToEmail:
+    Type: String
+    Description: Email address to receive form submissions
+    Default: website@trollhair.com
+Globals:
+  Function:
+    Runtime: nodejs22.x
+    Timeout: 30
+    MemorySize: 256
+    Environment:
+      Variables:
+        TABLE_NAME:
+          Ref: TableName
+        FROM_EMAIL:
+          Ref: FromEmail
+        TO_EMAIL:
+          Ref: ToEmail
+Resources:
+  TrollHairTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName:
+        Ref: TableName
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+      - AttributeName: pk
+        AttributeType: S
+      - AttributeName: sk
+        AttributeType: S
+      KeySchema:
+      - AttributeName: pk
+        KeyType: HASH
+      - AttributeName: sk
+        KeyType: RANGE
+      StreamSpecification:
+        StreamViewType: NEW_AND_OLD_IMAGES
+      Tags:
+      - Key: Environment
+        Value:
+          Ref: Environment
+      - Key: Project
+        Value: TrollHair
+  TrollHairApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      StageName:
+        Ref: Environment
+      CorsConfiguration:
+        AllowOrigins:
+        - Ref: AllowedOrigin
+        AllowHeaders:
+        - Content-Type
+        - Authorization
+        AllowMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - OPTIONS
+        MaxAge: 3600
+  ContactSendFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName:
+        Fn::Sub: ${TableName}-contact-send
+      CodeUri: ContactSendFunction
+      Handler: index.handler
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName:
+            Ref: TrollHairTable
+      - SESCrudPolicy:
+          IdentityName:
+            Ref: FromEmail
+      Events:
+        PostContact:
+          Type: HttpApi
+          Properties:
+            ApiId:
+              Ref: TrollHairApi
+            Path: /contact/send
+            Method: POST
+        OptionsContact:
+          Type: HttpApi
+          Properties:
+            ApiId:
+              Ref: TrollHairApi
+            Path: /contact/send
+            Method: OPTIONS
+    Metadata:
+      SamResourceId: ContactSendFunction
+Outputs:
+  ApiUrl:
+    Description: API Gateway endpoint URL
+    Value:
+      Fn::Sub: https://${TrollHairApi}.execute-api.${AWS::Region}.amazonaws.com/${Environment}
+  TableName:
+    Description: DynamoDB table name
+    Value:
+      Ref: TrollHairTable
+  ApiId:
+    Description: API Gateway ID
+    Value:
+      Ref: TrollHairApi

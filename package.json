@@ -4,14 +4,14 @@
   "description": "Serverless backend for Troll Hair website - AWS Lambda, API Gateway, DynamoDB, SES",
   "type": "module",
   "scripts": {
-    "test": "find routes -name 'test.js' -type f | xargs -I {} node {}",
+    "test": "find routes -name 'test.js' -type f -not -path '*/node_modules/*' | xargs -I {} node {}",
     "preview-emails": "node utilities/preview-server.js",
     "build": "sam build",
     "deploy:dev": "sam build && sam deploy --config-env dev",
     "deploy:prod": "sam build && sam deploy --config-env prod",
     "validate": "sam validate"
   },
-  "dependencies": {
+  "devDependencies": {
     "@aws-sdk/client-dynamodb": "^3.936.0",
     "@aws-sdk/lib-dynamodb": "^3.936.0",
     "@aws-sdk/client-ses": "^3.936.0"
