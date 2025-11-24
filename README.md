@@ -63,12 +63,14 @@ backend/
 
 One table per environment: `devtrolls` (dev), `trollhair` (prod)
 
-Single-table design with pk/sk pattern:
+Single-table design with pk/sk pattern (email as sort key for common access pattern):
 ```
-pk: website-contact#<timestamp>, sk: <email>
-pk: website-sample#<timestamp>, sk: <email>
-pk: website-career#<timestamp>, sk: <email>
+pk: website#contact, sk: <email>
+pk: website#sample, sk: <email>
+pk: website#career, sk: <email>
 ```
+
+Includes GSI with flipped pk/sk for querying all items by email across entity types.
 
 ## Development Workflow
 

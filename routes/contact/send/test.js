@@ -37,7 +37,7 @@ var validEmail = {
 }
 var validEmailNote = `
   📧 To: website@trollhair.com, Subject: "New Contact Form Submission from Jane Smith"
-  💾 Table: devtrolls, pk: website-contact#<timestamp>, sk: jane@example.com
+  💾 Table: devtrolls, pk: website#contact, sk: jane@example.com
 `
 await test('Valid submission', validEmail, 200, validEmailNote)
 

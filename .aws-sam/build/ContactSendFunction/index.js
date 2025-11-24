@@ -31,7 +31,7 @@ export var handler = async function (event) {
     // Prepare data
     var timestamp = Date.now()
     var contactItem = {
-      pk: `website-contact#${timestamp}`,
+      pk: 'website#contact',
       sk: data.email.trim(),
       name: data.name.trim(),
       email: data.email.trim(),
