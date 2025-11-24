@@ -2,7 +2,7 @@
 // Run with: node routes/contact/send/test.js
 // Requires: AWS credentials, TABLE_NAME, FROM_EMAIL, TO_EMAIL env vars
 
-import testLambda from './test-lambda.js'
+import testLambda from './utilities/test-lambda.js'
 import { handler } from './index.js'
 
 var test = testLambda(handler)
