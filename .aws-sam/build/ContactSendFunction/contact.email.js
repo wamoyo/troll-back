@@ -3,6 +3,17 @@
 import html from '../../../utilities/html.js'
 
 export function createEmailBody (data) {
+  // Style variables for DRY inline styles
+  var baseFont = 'margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6;'
+  var contentCell = 'padding: 0 20px;'
+  var bold = 'font-weight: bold;'
+  var italic = 'font-style: italic'
+  var h1Style = 'font-size: 1.5em; max-width: 600px; border-bottom: 2px solid #e22c3b;'
+  var pStyle = 'font-size: 1em; line-height: 1.6;'
+  var mediumPStyle = 'font-size: 1.3em; line-height: 1.6;'
+  var smallStyle = 'font-size: 0.875em;'
+  var imgStyle = 'display: block; width: 100%; max-width: 300px; height: auto;'
+
   return html`<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,50 +21,48 @@ export function createEmailBody (data) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>New Contact Form Submission</title>
 </head>
-<body style="margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif;">
+<body style="${baseFont}">
   <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
     <tr>
       <td style="padding: 30px 20px 0px 20px;">
-        <img src="http://trollhair.com/images/Troll-Hair-Logo-Red-Text-300.png" alt="Troll Hair" width="300" height="113" style="display: block; width: 100%; max-width: 300px; height: auto;">
+        <img src="http://trollhair.com/images/Troll-Hair-Logo-Red-Text-300.png" alt="Troll Hair" width="300" height="113" style="${imgStyle}">
       </td>
     </tr>
     <tr>
-      <td style="padding: 0 20px; font-size: 16px; line-height: 1.6;">
+      <td style="${contentCell}">
 
-        <h1 style="max-width: 600px; border-bottom: 2px solid #e22c3b;">New Contact Form Submission</h1>
-        <p>We have a contact that came in from the website... (They are not CC'd)</p>
+        <h1 style="${h1Style}">New Contact Form Submission</h1>
+        <p style="${mediumPStyle}">We have a contact that came in from the website... (They are not CC'd.)</p>
 
-        <p>
+        <p style="${pStyle}">
           <strong>Name:</strong><br>
           ${data.name}
         </p>
 
-        <p>
+        <p style="${pStyle}">
           <strong>Email:</strong><br>
           <a href="mailto:${data.email}">${data.email}</a>
         </p>
 
-        <p>
+        <p style="${pStyle}">
           <strong>Phone:</strong><br>
           ${data.phone || 'Not provided'}
         </p>
 
-        <p>
+        <p style="${pStyle}">
           <strong>Message:</strong><br>
           ${data.message}
         </p>
 
-        <p style="font-size: 14px;">
-          <em>Submitted from trollhair.com on ${new Date().toLocaleString('en-US', {
-            timeZone: 'America/New_York',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: '2-digit',
-            timeZoneName: 'short'
-          })}</em>
-        </p>
+        <p style="${smallStyle} ${italic}"> Submitted from trollhair.com on ${new Date().toLocaleString('en-US', {
+          timeZone: 'America/New_York',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: 'numeric',
+          minute: '2-digit',
+          timeZoneName: 'short'
+        })}</p>
 
       </td>
     </tr>
