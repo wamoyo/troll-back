@@ -11,9 +11,9 @@ var dynamoClient = new DynamoDBClient({})
 var docClient = DynamoDBDocumentClient.from(dynamoClient)
 var sesClient = new SESClient({})
 
-var TABLE_NAME = process.env.TABLE_NAME
-var FROM_EMAIL = process.env.FROM_EMAIL
-var TO_EMAIL = process.env.TO_EMAIL
+var TABLE_NAME = process.env.TROLLHAIR_TABLE_NAME
+var FROM_EMAIL = process.env.TROLLHAIR_FROM_EMAIL
+var TO_EMAIL = process.env.TROLLHAIR_TO_EMAIL
 
 export var handler = async function (event) {
   try {

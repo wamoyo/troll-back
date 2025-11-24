@@ -32,11 +32,11 @@ Globals:
     MemorySize: 256
     Environment:
       Variables:
-        TABLE_NAME:
+        TROLLHAIR_TABLE_NAME:
           Ref: TableName
-        FROM_EMAIL:
+        TROLLHAIR_FROM_EMAIL:
           Ref: FromEmail
-        TO_EMAIL:
+        TROLLHAIR_TO_EMAIL:
           Ref: ToEmail
 Resources:
   TrollHairTable:

@@ -32,7 +32,7 @@ await test('Honeypot spam detection', spamSubmission, 400)
 var validEmail = {
   name: 'Jane Smith',
   email: 'jane@example.com',
-  phone: '555-1234',
+  phone: '777-555-1234',
   message: 'I would like to learn more about your CNT products.'
 }
 var validEmailNote = `

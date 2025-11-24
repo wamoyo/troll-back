@@ -18,7 +18,7 @@ export function createEmailBody (data) {
       </td>
     </tr>
     <tr>
-      <td style="padding: 0 20px; font-size: 18px; line-height: 1.6;">
+      <td style="padding: 0 20px; font-size: 16px; line-height: 1.6;">
 
         <h1 style="max-width: 600px; border-bottom: 2px solid #e22c3b;">New Contact Form Submission</h1>
         <p>We have a contact that came in from the website... (They are not CC'd)</p>
