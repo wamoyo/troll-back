@@ -106,6 +106,26 @@ Resources:
             Path: /contact/send
             Method: POST
 
+  # Lambda Function: POST /careers/apply
+  CareersApplyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub '${TableName}-careers-apply'
+      CodeUri: routes/careers/apply/
+      Handler: index.handler
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TrollHairTable
+        - SESCrudPolicy:
+            IdentityName: !Ref FromEmail
+      Events:
+        PostCareers:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref TrollHairApi
+            Path: /careers/apply
+            Method: POST
+
 Outputs:
   ApiUrl:
     Description: API Gateway endpoint URL
