@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "test": "node test.js",
     "logs": "aws logs tail /aws/lambda/devtrolls-careers-apply --since 15m --format short"
   },
   "dependencies": {
